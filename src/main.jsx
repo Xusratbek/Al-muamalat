@@ -5,19 +5,19 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
-// import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-// const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* <QueryClientProvider client={queryClient}> */}
+     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <AuthProvider>
           <App />
       </AuthProvider>
       </BrowserRouter>
-    {/* </QueryClientProvider> */}
+    </QueryClientProvider>
     <ToastContainer 
         position="top-right"
         autoClose={3000}

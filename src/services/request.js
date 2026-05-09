@@ -5,7 +5,7 @@ const request = axios.create({
         "Content-Type": "application/json"
     },
     baseURL: "https://api.al-muamalat.uz/api",
-    params: {}
+    params: {} 
 })
 
 request.interceptors.request.use(
@@ -27,7 +27,7 @@ request.interceptors.response.use(
         if (error.response.status === 401) {
             try {
                 const refreshToken = localStorage.getItem("refreshToken")
-                const response = await axios.post("https://api.al-muamalat.uz/api/auth/refreshToken", {
+                const response = await axios.post("https://api.al-muamalat.uz/api/auth/refresh", {
                     refreshToken: refreshToken
                 })
                 const { accessToken } = response.data;
@@ -42,4 +42,4 @@ request.interceptors.response.use(
     }
 )
 
-export { request }
+export default request

@@ -1,46 +1,30 @@
-import { Routes, Route } from "react-router-dom";
-import RegisterPage from "./pages/RegisterPage";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { request } from "./services/request";
-import LoginPage from "./pages/LoginPage";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
+import Contact from "./pages/Contact"; // Siz yozgan Outlet'li komponent
+import ProfileForm from "./pages/ProfileForm"; // Pastdagi forma komponenti
+import CourseList from "./pages/CourseList";
+import CourseItem from "./pages/CourseItem";
+import LoginPage from "./pages/LoginPage";
 import LoginVerify from "./components/auth/LoginVerify";
-import RegisterVerify from "./components/auth/RegisterVerify";  
-
-// const MbbHujjatlarniImzolashFormPage = lazy(() =>
-//   import("@/pages/mbb/hujjatlarni-imzolash/pages/FormPage")
-// );
 
 export default function App() {
-
-
-//   const {data,isLoading,isError} = useQuery({
-//     queryKey:['postsData'],
-//     queryFn:() => request.get("/courses/main").then((res) => res.data)
-//   })
-//   if (isLoading){
-//     return "hello loading"
-//   }
-
-//   if (isError) {
-//     return "hello error"
-//   }
-
-// const {mutate,isLoading:courseLoading} =useMutation()
-
-
-
   return (
-   
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/verifylogin" element={<LoginVerify/> }/>
-        <Route path="/verifyregister" element={<RegisterVerify/> }/>
-        
-        
-      </Routes>
-    
+    <Routes>
+      
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/verifylogin" element={<LoginVerify />} />
+      {/* Contact sahifasi Layout vazifasini bajaradi */}
+      <Route path="/contact" element={<Contact />}>
+        {/* /contact ga kirganda avtomatik ProfileForm chiqadi */}
+        <Route index element={<ProfileForm />} /> 
+        {/* /contact/course ga kirganda kurslar chiqadi */}
+        <Route path="course" element={<CourseList />} />
+
+      </Route>
+
+      <Route path="/course" element={<Navigate to="/contact/course" replace />} />
+      <Route path="/course/:course_id" element={<CourseItem />} />
+    </Routes>
   );
 }

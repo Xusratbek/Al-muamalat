@@ -5,6 +5,7 @@ import Header from "../components/header/Header"; // Figurali qavssiz import
 import Hero from "../components/home/Hero";
 import SliderDots from "@/components/ui/SliderDots";
 import Services from "@/components/home/Services";
+import { Footer } from "@/components/footer/footer";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Hero />
       <SliderDots />
       <Services />
+      <Footer />
     </main>
   );
 };

@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { request } from "../services/request";
+import  request  from "@/services/request";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -12,10 +12,7 @@ const defaultProvider = {
     login: () => Promise.resolve(),
     register: () => Promise.resolve(),
     logout: () => Promise.resolve(),
-    handleVerifyOtp: () => Promise.resolve(),
-    handleOtpResend: () => Promise.resolve(),
-    handleVerifyOtpRegister: () => Promise.resolve(),
-    handleOtpResendRegister: () => Promise.resolve(),   
+      
 }
 
 
@@ -32,9 +29,9 @@ const AuthProvider = ({ children }) => {
         setLoading(true)
         request.post("/v2/auth/signin/init", params)
             .then((response) => {
+                console.log(response.data);
                 toast.success(response?.data?.message)
-                localStorage.setItem('userToken', response.data.accessToken)
-                localStorage.setItem('refreshToken', response.data.refreshToken)
+                
                 setUser(response.data.user)
                 navigate('/verifylogin')
 
@@ -56,6 +53,8 @@ const AuthProvider = ({ children }) => {
             .then((response) => {
                 console.log(response.data);
                 toast.success(response?.data?.message)
+                localStorage.setItem('userToken', response.data.data.tokens.accessToken)
+                localStorage.setItem('refreshToken', response.data.data.tokens.refreshToken)
                 navigate('/')
 
             })
